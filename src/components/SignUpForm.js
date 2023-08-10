@@ -1,5 +1,7 @@
 import { useFormik } from 'formik';
 import React from 'react';
+import * as Yup from 'yup';
+
 
 const validateFn = (values) => {
     const errors = {};
@@ -25,6 +27,8 @@ const validateFn = (values) => {
     return errors;
 };
 
+
+
 const SignUpForm = () => {
     const formik = useFormik({
         initialValues: {
@@ -32,10 +36,16 @@ const SignUpForm = () => {
             lastName: '',
             email: '',
         },
-        validate: validateFn,
+        // validate: validateFn,
         onSubmit: (values) => {
             console.log(values);
         },
+        validationSchema: Yup.object({
+            firstName: Yup.string().max(15, 'Must be of 15 characters').required('Required'),
+            lastName: Yup.string().max(20, 'Must be of 20 characters').required('Required'),
+            email: Yup.string().email('Invalid email address').required('Required'),
+
+        })
     });
 
     return (
