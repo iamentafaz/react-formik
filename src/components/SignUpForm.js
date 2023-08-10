@@ -3,29 +3,29 @@ import React from 'react';
 import * as Yup from 'yup';
 
 
-const validateFn = (values) => {
-    const errors = {};
+// const validateFn = (values) => {
+//     const errors = {};
 
-    if (!values.firstName) {
-        errors.firstName = 'Required';
-    } else if (values.firstName.length > 15) {
-        errors.firstName = 'Must be 15 characters or less';
-    }
+//     if (!values.firstName) {
+//         errors.firstName = 'Required';
+//     } else if (values.firstName.length > 15) {
+//         errors.firstName = 'Must be 15 characters or less';
+//     }
 
-    if (!values.lastName) {
-        errors.lastName = 'Required';
-    } else if (values.lastName.length > 20) {
-        errors.lastName = 'Must be 20 characters or less';
-    }
+//     if (!values.lastName) {
+//         errors.lastName = 'Required';
+//     } else if (values.lastName.length > 20) {
+//         errors.lastName = 'Must be 20 characters or less';
+//     }
 
-    if (!values.email) {
-        errors.email = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-    }
+//     if (!values.email) {
+//         errors.email = 'Required';
+//     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+//         errors.email = 'Invalid email address';
+//     }
 
-    return errors;
-};
+//     return errors;
+// };
 
 
 
@@ -57,10 +57,7 @@ const SignUpForm = () => {
                     <input
                         type='text'
                         id='firstName'
-                        name='firstName'
-                        onChange={formik.handleChange}
-                        value={formik.values.firstName}
-                        onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('firstName')}
                     />
                     {formik.touched.firstName && formik.errors.firstName ? (
                         <p className='error'>{formik.errors.firstName}</p>
@@ -71,10 +68,7 @@ const SignUpForm = () => {
                     <input
                         type='text'
                         id='lastName'
-                        name='lastName'
-                        onChange={formik.handleChange}
-                        value={formik.values.lastName}
-                        onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('lastName')}
                     />
                     {formik.touched.lastName && formik.errors.lastName ? (
                         <p className='error'>{formik.errors.lastName}</p>
@@ -85,10 +79,7 @@ const SignUpForm = () => {
                     <input
                         type='email'
                         id='email'
-                        name='email'
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
-                        onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('email')}
                     />
                     {formik.touched.email && formik.errors.email ? (
                         <p className='error'>{formik.errors.email}</p>
@@ -98,7 +89,7 @@ const SignUpForm = () => {
                 <button type='submit'>Submit</button>
             </form>
             {
-                formik.isValid ? <div>
+                formik.touched && formik.isValid ? <div>
                     {formik.values.firstName} - {formik.values.lastName} - {formik.values.email}
                 </div> : null
             }
