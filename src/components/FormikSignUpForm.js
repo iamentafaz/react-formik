@@ -6,11 +6,20 @@ const initialValues = {
     firstName: '',
     lastName: '',
     email: '',
+    gender: '',
+    social: {
+        facebook: '',
+        twitter: '',
+    }
 };
 const validationSchema = Yup.object({
     firstName: Yup.string().max(15, 'Must be of 15 characters').required('Required'),
     lastName: Yup.string().max(20, 'Must be of 20 characters').required('Required'),
     email: Yup.string().email('Invalid email address').required('Required'),
+    social: Yup.object({
+        facebook: Yup.string().url('Enter valid address'),
+        twitter: Yup.string().url('Enter valid address'),
+    })
 });
 
 const onSubmit = (values) => {
@@ -49,6 +58,25 @@ export const FormikSignUpForm = () => {
                         <label htmlFor='email'>Email</label>
                         <Field type='email' name='email' />
                         <ErrorMessage name='email' className='error' component='p'></ErrorMessage>
+                    </div>
+                    <div className='form-fiels'>
+                        <label htmlFor='gender'>Gender</label>
+                        <Field as="select" name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </Field>
+                    </div>
+
+                    <div className='form-field'>
+                        <label htmlFor='facebook'>Facebook</label>
+                        <Field type='text' name='social.facebook' />
+                        <ErrorMessage name='social.facebook' className='error' component='p'></ErrorMessage>
+                    </div>
+
+                    <div className='form-field'>
+                        <label htmlFor='twitter'>Twitter</label>
+                        <Field type='text' name='social.twitter' />
+                        <ErrorMessage name='social.twitter' className='error' component='p'></ErrorMessage>
                     </div>
 
                     <button type='submit'>Submit</button>
