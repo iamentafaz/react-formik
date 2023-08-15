@@ -2,7 +2,6 @@ import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
-
 // const validateFn = (values) => {
 //     const errors = {};
 
@@ -27,8 +26,6 @@ import * as Yup from 'yup';
 //     return errors;
 // };
 
-
-
 const SignUpForm = () => {
     const formik = useFormik({
         initialValues: {
@@ -44,8 +41,7 @@ const SignUpForm = () => {
             firstName: Yup.string().max(15, 'Must be of 15 characters').required('Required'),
             lastName: Yup.string().max(20, 'Must be of 20 characters').required('Required'),
             email: Yup.string().email('Invalid email address').required('Required'),
-
-        })
+        }),
     });
 
     return (
@@ -54,33 +50,21 @@ const SignUpForm = () => {
             <form onSubmit={formik.handleSubmit} className='signup-form'>
                 <div className='form-field'>
                     <label htmlFor='firstName'>First Name</label>
-                    <input
-                        type='text'
-                        id='firstName'
-                        {...formik.getFieldProps('firstName')}
-                    />
+                    <input type='text' id='firstName' {...formik.getFieldProps('firstName')} />
                     {formik.touched.firstName && formik.errors.firstName ? (
                         <p className='error'>{formik.errors.firstName}</p>
                     ) : null}
                 </div>
                 <div className='form-field'>
                     <label htmlFor='lastName'>Last Name</label>
-                    <input
-                        type='text'
-                        id='lastName'
-                        {...formik.getFieldProps('lastName')}
-                    />
+                    <input type='text' id='lastName' {...formik.getFieldProps('lastName')} />
                     {formik.touched.lastName && formik.errors.lastName ? (
                         <p className='error'>{formik.errors.lastName}</p>
                     ) : null}
                 </div>
                 <div className='form-field'>
                     <label htmlFor='email'>Email</label>
-                    <input
-                        type='email'
-                        id='email'
-                        {...formik.getFieldProps('email')}
-                    />
+                    <input type='email' id='email' {...formik.getFieldProps('email')} />
                     {formik.touched.email && formik.errors.email ? (
                         <p className='error'>{formik.errors.email}</p>
                     ) : null}
@@ -88,12 +72,11 @@ const SignUpForm = () => {
 
                 <button type='submit'>Submit</button>
             </form>
-            {
-                formik.touched && formik.isValid ? <div>
+            {formik.touched && formik.isValid ? (
+                <div>
                     {formik.values.firstName} - {formik.values.lastName} - {formik.values.email}
-                </div> : null
-            }
-            
+                </div>
+            ) : null}
         </div>
     );
 };

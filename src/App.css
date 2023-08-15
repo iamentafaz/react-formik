@@ -1,35 +1,38 @@
 .signup-container {
-  margin: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .signup-form {
-  display: flex;
-  flex-direction: column;
-  max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    max-width: 560px;
 }
 .signup-form label {
-  font-size: 20px;
-  font-weight: 550;
+    font-size: 20px;
+    font-weight: 550;
 }
 
 .signup-form input,
-select {
-  margin-top: .25rem;
-  padding: .5rem;
-  border-radius: 4px;
+.signup-form select {
+    margin-top: 0.25rem;
+    padding: 0.5rem;
+    border-radius: 4px;
 }
 .signup-form button {
-  margin: 1rem 0;
-  padding: .5rem;
-  cursor: pointer;
-} 
+    margin: 1rem 0;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+.ph-number-wrapper button {
+  margin: 0 .25rem;
+}
 .form-field {
-  margin: 1rem 0;
-  display: grid;
+    margin-bottom: 1rem;
+    display: grid;
 }
 .error {
-  color: rgb(214, 24, 24);
-  margin: 0;
+    color: rgb(214, 24, 24);
+    margin: 0;
 }

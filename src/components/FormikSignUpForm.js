@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, FastField, Field, FieldArray, Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
@@ -10,7 +10,10 @@ const initialValues = {
     social: {
         facebook: '',
         twitter: '',
-    }
+    },
+    phoneNumbers: ['', ''],
+    phNumbers: [''],
+    about: '',
 };
 const validationSchema = Yup.object({
     firstName: Yup.string().max(15, 'Must be of 15 characters').required('Required'),
@@ -19,7 +22,7 @@ const validationSchema = Yup.object({
     social: Yup.object({
         facebook: Yup.string().url('Enter valid address'),
         twitter: Yup.string().url('Enter valid address'),
-    })
+    }),
 });
 
 const onSubmit = (values) => {
@@ -59,24 +62,86 @@ export const FormikSignUpForm = () => {
                         <Field type='email' name='email' />
                         <ErrorMessage name='email' className='error' component='p'></ErrorMessage>
                     </div>
-                    <div className='form-fiels'>
+                    <div className='form-field'>
                         <label htmlFor='gender'>Gender</label>
-                        <Field as="select" name="gender">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                        <Field as='select' name='gender'>
+                            <option value='male'>Male</option>
+                            <option value='female'>Female</option>
                         </Field>
                     </div>
 
                     <div className='form-field'>
                         <label htmlFor='facebook'>Facebook</label>
                         <Field type='text' name='social.facebook' />
-                        <ErrorMessage name='social.facebook' className='error' component='p'></ErrorMessage>
+                        <ErrorMessage
+                            name='social.facebook'
+                            className='error'
+                            component='p'
+                        ></ErrorMessage>
                     </div>
 
                     <div className='form-field'>
                         <label htmlFor='twitter'>Twitter</label>
                         <Field type='text' name='social.twitter' />
-                        <ErrorMessage name='social.twitter' className='error' component='p'></ErrorMessage>
+                        <ErrorMessage
+                            name='social.twitter'
+                            className='error'
+                            component='p'
+                        ></ErrorMessage>
+                    </div>
+
+                    <div className='form-field'>
+                        <label htmlFor='primaryPh'>Primary Phone Number</label>
+                        <Field type='text' id='primaryPh' name='phoneNumbers[0]' />
+                        <ErrorMessage
+                            name='primaryPh'
+                            className='error'
+                            component='p'
+                        ></ErrorMessage>
+                    </div>
+
+                    <div className='form-field'>
+                        <label htmlFor='secondaryPh'>Alternate Mobile Number</label>
+                        <Field type='text' id='secondaryPh' name='phoneNumbers[1]' />
+                        <ErrorMessage
+                            name='secondaryPh'
+                            className='error'
+                            component='p'
+                        ></ErrorMessage>
+                    </div>
+
+                    <div className='form-field'>
+                        <label htmlFor='phNumbers'>List of numbers</label>
+                        <FieldArray name='phNumbers'>
+                            {(fieldArrayProps) => {
+                                const { push, remove, form } = fieldArrayProps;
+                                const { phNumbers } = form.values;
+                                return (
+                                    <div className='ph-number-wrapper'>
+                                        {phNumbers.map((phNumber, index) => (
+                                            <div key={index}>
+                                                <Field type='text' name={`phNumbers.${index}`} />
+                                                {index > 0 && (
+                                                    <button
+                                                        type='button'
+                                                        onClick={() => remove(index)}
+                                                    >
+                                                        -
+                                                    </button>
+                                                )}
+                                                <button type='button' onClick={() => push('')}>
+                                                    +
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                );
+                            }}
+                        </FieldArray>
+                        <div className='form-field'>
+                            <label htmlFor='about'>About</label>
+                            <FastField name='about' id='about'></FastField>
+                        </div>
                     </div>
 
                     <button type='submit'>Submit</button>

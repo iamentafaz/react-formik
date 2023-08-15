@@ -3,7 +3,7 @@ import { FormikSignUpForm } from './components/FormikSignUpForm';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <FormikSignUpForm />
     </div>
   );
